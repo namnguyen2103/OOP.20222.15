@@ -102,6 +102,14 @@ public class GUIQueueFrame extends JFrame {
 		insertBtn.setEnabled(false);
 		
 		sortBtn = new JButton("Sort");
+		sortBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				queue.sort();
+				JOptionPane.showMessageDialog(null, "The queue has been sorted successfully!.");
+				changeText("Current queue: " + queue.toString(), "The queue has been sorted.");
+				sortBtn.setEnabled(false);
+			}
+		});
 		operations.add(sortBtn);
 		sortBtn.setEnabled(false);
 		
@@ -128,8 +136,7 @@ public class GUIQueueFrame extends JFrame {
 				String[] texts = queue.find(elementToFind[0]);
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
-		            public void run() {
-		            	
+		            public void run() {		            	
 		                GUISlideshow slideshowGUI = new GUISlideshow(texts);
 		                slideshowGUI.setVisible(true);
 		            }
