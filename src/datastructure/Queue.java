@@ -42,18 +42,19 @@ public class Queue extends DataStructure {
 	        return;
 	    }
 
-	    int[] sortedArray = new int[count]; // Create a new array to store the sorted elements
+	    int[] sortedArray = new int[count]; 
 	    int index = 0;
-
-	    // Copy elements from the queue to the sorted array
+	    
 	    while (!isEmpty()) {
 	        sortedArray[index] = delete();
 	        index++;
 	    }
-
 	    Arrays.sort(sortedArray);
-
-	    // Insert the sorted elements into the new queue
+	    
+	    arr = new int[capacity];
+        front = 0;
+        rear = -1;
+        count = 0;
 	    for (int element : sortedArray) {
 	        this.insert(element);
 	    }
@@ -67,6 +68,7 @@ public class Queue extends DataStructure {
         StringBuilder sb = new StringBuilder();
         String delimiter = "#"; 
         boolean notFound = true;
+        int originalFront = front;
 
         int size = size();
 
@@ -74,7 +76,9 @@ public class Queue extends DataStructure {
             int currentElement = arr[front];
             queueCopy.insert(currentElement);
             front = (front + 1) % capacity;
-        }                
+        }  
+        
+        front = originalFront;
 
         sb.append("We will apply the method Dequeue and Search here, ...").append(delimiter);
         sb.append("The original queue: \n").append(queueCopy.toString()).append(delimiter);
@@ -84,7 +88,7 @@ public class Queue extends DataStructure {
             sb.append("The front element is ").append(currentElement).append(".");
             if (currentElement == element) {
                 sb.append(delimiter);
-            	sb.append("Element ").append(element).append(" found in the queue.");
+            	sb.append("Element ").append(element).append(" is found in the queue.");
                 notFound = false;
                 break;
             }
@@ -92,7 +96,7 @@ public class Queue extends DataStructure {
         }
         
         if (notFound == true) {
-        	sb.append("Element ").append(element).append(" not found in the queue.\n");
+        	sb.append("Element ").append(element).append(" is not found in the queue.\n");
         }
         
         String[] steps = sb.toString().split(delimiter);
@@ -136,7 +140,17 @@ public class Queue extends DataStructure {
         q.insert(2);
         q.insert(1);
         System.out.println(q);
-        q.sort();
+        for (int qq: q.arr) {
+        	System.out.print(qq);
+        }
         System.out.println(q);
+        String[] steps = q.find(6);
+        for (String step: steps) {
+        	System.out.println(step);
+        }
+        System.out.println(q);
+        for (int qq: q.arr) {
+        	System.out.print(qq);
+        }
     } 
 }
