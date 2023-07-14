@@ -1,74 +1,51 @@
 package datastructure;
 
-public abstract class Linkedlist 
+public abstract class MyLinkedlist 
 {
-    Node head; // head of list
-    public Linkedlist(Linkedlist arr) 
+    private Node head;     
+    public MyLinkedlist(Node nodehead) 
     {
-    	head = null;
+    	head = nodehead;
     }
     
-    public Linkedlist insertFirst(Linkedlist list, int data)
+    public void insertFirst(int data)
     {
         Node new_node = new Node(data);
-  
-        // Set the next of new_node as the current head
-        new_node.next = list.head;
-  
-        // Make the new_node as the new head
-        list.head = new_node;
-  
-        // Return the updated list
-        return list;
+        
+        new_node.next = this.head;
+        this.head = new_node;
+ 
     }
 
-	public void insertLast(Linkedlist list, int data)
+	public void insertLast(int data)
     {
         Node new_node = new Node(data);
         new_node.next = null;
   
-        // If the Linked List is empty,
-        // then make the new node as head
-        if (list.head == null) 
+        if (this.head == null) 
         {
-            list.head = new_node;
+            this.head = new_node;
         }
         else 
         {
-            // Else traverse till the last node
-            // and insert the new_node there
-            Node last = list.head;
+            Node last = this.head;
             while (last.next != null) 
             {
                 last = last.next;
             }
   
-            // Insert the new_node at last node
             last.next = new_node;
         }
   
-        // Return the list by head
     }
   
-    // Method to print the LinkedList.
-    public void printList(Linkedlist list)
+    public void deleteByKey(int key)
     {
-        Node currNode = list.head;
-  
-        while (currNode != null) 
-        {
-            System.out.print(currNode.data + " ");
-             currNode = currNode.next;
-        }
-    }
-    
-    public void deleteByKey(Linkedlist list, int key)
-    {
-		Node currNode = list.head, prev = null;
+		Node currNode = this.head, prev = null;
 
 		if (currNode != null && currNode.data == key) 
 		{
-			list.head = currNode.next; // Changed head
+			this.head = currNode.next; // Changed head
 			System.out.println(key + " found and deleted");
 		}
 		
@@ -92,10 +69,10 @@ public abstract class Linkedlist
     	  
     }
     
-    public int findByNum(Linkedlist list, int key)
+    public int findByNum(int key)
     {
     	int count = 0;
-		Node currNode = list.head, prev = null;
+		Node currNode = this.head, prev = null;
 
 		if (currNode != null && currNode.data == key) 
 		{
@@ -119,10 +96,10 @@ public abstract class Linkedlist
     	     	
     }
     
-    public int findByID(Linkedlist list, int id)
+    public int findByID(int id)
     {
     	int count = 0;
-		Node currNode = list.head, prev = null;
+		Node currNode = this.head, prev = null;
 
 		if (currNode != null && count == id) 
 		{
@@ -145,9 +122,9 @@ public abstract class Linkedlist
     	  
     }
     
-    public void bubbleSort(Linkedlist list) 
+    public void bubbleSort() 
     {
-        int n = length(list);
+        int n = this.length();
         if (n <= 1) {
             // Already sorted or empty list
             return;
@@ -157,7 +134,7 @@ public abstract class Linkedlist
         do 
         {
             swapped = false;
-            Node current = list.head;
+            Node current = this.head;
             Node previous = null;
 
             while (current != null && current.next != null) 
@@ -169,7 +146,7 @@ public abstract class Linkedlist
                     if (previous == null) 
                     {
                         // Update the head
-                        list.head = nextNode;
+                        this.head = nextNode;
                     } else {
                         previous.next = nextNode;
                     }
@@ -184,11 +161,10 @@ public abstract class Linkedlist
         while (swapped);
     }
 
-    // Helper method to calculate the length of the linked list
-    private int length(Linkedlist list) 
+    private int length() 
     {
         int count = 0;
-        Node current = list.head;
+        Node current = this.head;
         while (current != null) 
         {
             count++;
