@@ -101,19 +101,26 @@ public class List extends DataStructure
 	        k++;
 	    }
 	}
-
-	public int find(int element) 
+	
+	@Override
+	public String[] find(int element) 
 	{
+        StringBuilder sb = new StringBuilder();
+
 
 	    for (int i = 0; i < count; i++) 
 	    {
 	        if (arr[i] == element) 
 	        {
-	        	return i;
+	        	sb.append(i);
+	        	sb.append(",");
 	        }
 	    }
 	    
-	    return -1;
+        String[] ID = sb.toString().split(",");
+
+	    
+	    return ID;
 	}
 	
 	public String toString() 

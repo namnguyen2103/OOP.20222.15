@@ -161,18 +161,14 @@ public class GUIListFrame extends JFrame {
 		                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
 		            }
 		        }
-				
-				int number = list.find(elementToFind[0]);
-				String[] texts = new String[]{String.valueOf(number)};
-				
+				String[] texts = list.find(elementToFind[0]);
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 		            public void run() {		            	
 		                GUISlideshow slideshowGUI = new GUISlideshow(texts);
 		                slideshowGUI.setVisible(true);
 		            }
-			    });
-				
+			    });				
 				updateButtons();
 				changeText("Current list: " + list.toString(), texts[texts.length-1]);
 			}

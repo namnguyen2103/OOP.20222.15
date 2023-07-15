@@ -15,7 +15,7 @@ public abstract class DataStructure
     public void sort() {    	
     };
     
-    public abstract int find(int element); 
+    public abstract String[] find(int element); 
     
     public abstract int delete();      
     
