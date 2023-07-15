@@ -1,48 +1,37 @@
 package datastructure;
 
+import java.util.ArrayList;
+
 public class List extends DataStructure
 {
-	private int len;
+	private int count;
 	
 	public List() 
 	{
-		len = 0;
+		capacity = 1000;
+		arr = new int[capacity];
+		count = 0;
 	}
 	
 	public int size() 
 	{
-        return len;
+		return count;
     }
 	
-	public boolean isEmpty() 
+	public boolean isEmpty()
 	{
-        return (size() == 0);
-	}    
-    public boolean isFull() {
-        return (size() == arr.length);
-    }    
+		return (count == 0);
+	}
 	
 	public void insert(int element, int id) 
 	{
-	    if (isFull()) 
-	    {
-	        System.out.println("Overflow\nProgram Terminated");
-	        System.exit(-1);
-	    }
-
-	    if (id < 0 || id > len) 
-	    {
-	        System.out.println("Invalid ID\nProgram Terminated");
-	        System.exit(-1);
-	    }
-
-	    for (int i = len; i > id; i--) 
+	    for (int i = count; i > id; i--) 
 	    {
 	        arr[i] = arr[i - 1];
 	    }
 
 	    arr[id] = element;
-	    len++;
+	    count++;
 	}
 
 	@Override
@@ -54,7 +43,7 @@ public class List extends DataStructure
 	        return;
 	    }
 
-	    binarySort(arr, 0, len - 1);
+	    binarySort(arr, 0, count - 1);
 	}
 
 	private void binarySort(int[] arr, int low, int high) 
@@ -113,20 +102,37 @@ public class List extends DataStructure
 	    }
 	}
 
-	public void find(int element) 
+	public int find(int element) 
 	{
-	    for (int i = 0; i < len; i++) 
+
+	    for (int i = 0; i < count; i++) 
 	    {
 	        if (arr[i] == element) 
 	        {
-	        	 System.out.println(i);
+	        	return i;
 	        }
 	    }
-	    System.out.println("Not found"); // Element not found
+	    
+	    return -1;
 	}
+	
+	public String toString() 
+	{
+	    StringBuilder sb = new StringBuilder();
 
-	@Override
-	public int delete(int id) 
+	    for (int i = 0; i < count; i++) {
+	        sb.append(arr[i]);
+
+	        if (i < count - 1) 
+	        {
+	            sb.append(", ");
+	        }
+	    }
+
+	    return "[" + sb.toString() + "]";
+	}
+	
+	public void delete(int id) 
 	{
 	    if (isEmpty()) 
 	    {
@@ -134,19 +140,18 @@ public class List extends DataStructure
 	        System.exit(-1);
 	    }
 
-	    if (id < 0 || id >= len) {
+	    if (id < 0 || id >= count) 
+	    {
 	        System.out.println("Invalid ID\nProgram Terminated");
 	        System.exit(-1);
 	    }
 
-	    int deletedElement = arr[id];
-
-	    // Shift elements to the left to fill the gap created by the deleted element
-	    for (int i = id; i < len - 1; i++) {
+	    for (int i = id; i < count - 1; i++)
+	    {
 	        arr[i] = arr[i + 1];
 	    }
 
-	    len--;
-	    return deletedElement;
+	    count--;
+	    return;
 	}
 }
