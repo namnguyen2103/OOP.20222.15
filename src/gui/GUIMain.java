@@ -48,7 +48,13 @@ public class GUIMain extends JFrame {
         {
             public void actionPerformed(ActionEvent e) 
             {
-            	JOptionPane.showMessageDialog(new JFrame("Help"), "Some detailed explanation of the project and its usage.");
+            	SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        //Turn off metal's use of bold fonts
+                        UIManager.put("swing.boldMetal", Boolean.FALSE);
+                        new TextFieldDemo("Help").setVisible(true);
+                    }
+                });
             }
         });
         optionMenu.add(helpMenuItem);
