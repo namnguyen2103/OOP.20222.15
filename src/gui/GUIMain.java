@@ -78,7 +78,11 @@ public class GUIMain extends JFrame {
 		center.setLayout(new GridLayout(1, 3, 10, 10));
 		
 		center.add(new GUIListPanel());
+<<<<<<< Updated upstream
 		center.add(new GUIStackFrame());
+=======
+		center.add(new GUIStackPanel());
+>>>>>>> Stashed changes
 		center.add(new GUIQueuePanel());		
 		return center;
 	}
