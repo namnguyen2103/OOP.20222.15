@@ -2,25 +2,22 @@ package datastructure;
 
 public abstract class DataStructure 
 {
-    
-    public void insert(int element) {
-    	
-    };
-    public void sort() {
-    	
-    };
-    public void find(int element) {
-    	
-    };
-    public abstract int delete();
-    
-    protected int size;
+	
+	protected int capacity;
     protected int[] arr;
     
     public DataStructure() {
     }
-	public int delete(int id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    
+    public void insert(int element) {    	
+    };
+    
+    public void sort() {    	
+    };
+    
+    public abstract String[] find(int element); 
+    
+    public abstract int delete();      
+    
 }
+
