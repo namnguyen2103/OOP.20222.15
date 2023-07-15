@@ -268,5 +268,12 @@ public class GUIQueueFrame extends JFrame {
 			findBtn.setEnabled(true);
 		}
 		
+		if (queue.isFull()) {
+			insertBtn.setEnabled(false);
+		}
+		else {
+			insertBtn.setEnabled(true);
+		}
+		
 	}
 }
