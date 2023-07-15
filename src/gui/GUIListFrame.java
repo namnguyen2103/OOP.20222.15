@@ -1,17 +1,15 @@
 package gui;
 
 import javax.swing.*;
-
-import datastructure.List;
-
 import java.awt.*;
 import java.awt.event.*;
+import datastructure.List;
 
-public class GUIListFrame extends JPanel 
-{
+public class GUIListFrame extends JFrame {
+	
 	private List list;
-	private JTextField demolist;
-	private JTextField statuslist;
+	private JTextField demoList;
+	private JTextField statusList;
 	private JButton createBtn;
 	private JButton insertBtn;
 	private JButton sortBtn;
@@ -20,122 +18,114 @@ public class GUIListFrame extends JPanel
 	private JButton resetBtn;
 	
 	public GUIListFrame() {
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		Container cp = getContentPane();
+		cp.setLayout(new BorderLayout());
 		
-		JLabel title = new JLabel("LIST");
-		title.setFont(new Font(title.getFont().getName(), Font.PLAIN, 20));
-		title.setAlignmentX(CENTER_ALIGNMENT);
-		
-		JLabel des = new JLabel("Stack description");
-		des.setAlignmentX(CENTER_ALIGNMENT);
-		
-		JPanel container = new JPanel();
-		container.setLayout(new FlowLayout(FlowLayout.CENTER));
-		
-		JButton listButton = new JButton("List");
-		container.add(listButton);
-		
-		// Add action listeners to the buttons
-        listButton.addActionListener(new ActionListener() {
+		cp.add(createMain(), BorderLayout.CENTER);
+		cp.add(createMenuBar(), BorderLayout.NORTH);
+		cp.add(createOperations(), BorderLayout.SOUTH);
+
+		setVisible(true);
+		setTitle("List");
+		setSize(1200, 400);
+		setLocationRelativeTo(null);
+	}
+	
+	JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+        JMenu optionMenu = new JMenu("Option");
+        
+        JMenuItem mainMenuItem = new JMenuItem("Main Menu");
+        mainMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-				// Close the store window
-				JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(GUIListFrame.this);
-				frame.dispose();
-
-				// Create a new window
-				JFrame stackFrame = new JFrame();
-				Container cp = stackFrame.getContentPane();
-				cp.setLayout(new BorderLayout());
-
-				cp.add(createMenuBar(), BorderLayout.NORTH);
-				cp.add(new JPanel(), BorderLayout.CENTER); // Blank canvas to show animation
-				cp.add(createOperations(), BorderLayout.SOUTH);
-
-				stackFrame.setVisible(true);
-				stackFrame.setTitle("List");
-				stackFrame.setSize(1200, 400);
+            	GUIListFrame.this.dispose();
+            	new GUIMain();
             }
         });
+        optionMenu.add(mainMenuItem); 
+        
+        JMenuItem helpMenuItem = new JMenuItem("Help");
+        helpMenuItem.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+            	SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        //Turn off metal's use of bold fonts
+                        UIManager.put("swing.boldMetal", Boolean.FALSE);
+                        new TextFieldDemo("Help").setVisible(true);
+                    }
+                });
+            }
+        });
+        optionMenu.add(helpMenuItem);
 
-		this.add(Box.createVerticalGlue());
-		this.add(title);
-		this.add(des);
-		this.add(Box.createVerticalGlue());
-		this.add(container);
-		
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        optionMenu.add(exitMenuItem);     
+        
+        menuBar.add(optionMenu);
+        menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        return menuBar;
 	}
-
-
-	JPanel createOperations() 
-	{
+	
+	JPanel createOperations() {
 		JPanel operations = new JPanel();
 		operations.setLayout(new GridLayout(1, 5, 10, 10));
 
 		createBtn = new JButton("Create");
-		createBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean validInput = false;
-		        int capacity = 0;
+		createBtn.addActionListener(new ActionListener() 
+		{
+			public void actionPerformed(ActionEvent e) 
+			{
 
-		        while (!validInput) {
-		            String input = JOptionPane.showInputDialog(null, "Enter a positive integer as the capacity:", "Input", JOptionPane.QUESTION_MESSAGE);
-		            
-		            if (input == null) {
-		                return;
-		            }
-		            try {
-		                capacity = Integer.parseInt(input);
-		                if (capacity > 0) {
-		                    validInput = true;
-		                } else {
-		                    JOptionPane.showMessageDialog(null, "Invalid input! Please enter a positive integer.", "Error", JOptionPane.ERROR_MESSAGE);
-		                }
-		            } catch (NumberFormatException ex) {
-		                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid positive integer.", "Error", JOptionPane.ERROR_MESSAGE);
-		            }
-		        }
-		        
-		        JOptionPane.showMessageDialog(null, "A queue has been created successfully!.");
-		        list = new List();
-		        changeText("The queue is currently empty. Please insert elements.", "A queue with size " + capacity + " has been created!");
-		        updateButtons();
-		        createBtn.setEnabled(false);
+		       JOptionPane.showMessageDialog(null, "A queue has been created successfully!.");
+		       list = new List();
+		       changeText("The queue is currently empty. Please insert elements.", "A list has been created!");
+		       updateButtons();
+		       createBtn.setEnabled(false);
+		       insertBtn.setEnabled(true);
 			}
 		});
 		operations.add(createBtn);
 		
 		insertBtn = new JButton("Insert");
-		insertBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean validInput = false;
-		        int element = 0;
-				
-				while (!validInput) {
-		            String input = JOptionPane.showInputDialog(null, "Please input an integer:", "Input the element", JOptionPane.QUESTION_MESSAGE);
-		            
-		            if (input == null) {
+		insertBtn.addActionListener(new ActionListener() 
+		{
+		    public void actionPerformed(ActionEvent e) 
+		    {
+		        boolean validInput = false;
+		        int element = 0, id = 0;
+
+		        while (!validInput) {
+		            String elementInput = JOptionPane.showInputDialog(null, "Please input an integer for the element:", "Input the element", JOptionPane.QUESTION_MESSAGE);
+		            String idInput = JOptionPane.showInputDialog(null, "Please input an integer for the ID:", "Input the ID", JOptionPane.QUESTION_MESSAGE);
+
+		            if (elementInput == null || idInput == null) {
 		                return;
 		            }
-		            try {
-		                element = Integer.parseInt(input);
+
+		            try 
+		            {
+		                element = Integer.parseInt(elementInput);
+		                id = Integer.parseInt(idInput);
 		                validInput = true;
 		            } catch (NumberFormatException ex) {
 		                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
 		            }
 		        }
-				
-				JOptionPane.showMessageDialog(null, "The element has been inserted successfully!.");
-				queue.insert(element);
-				if (!queue.isFull()) {
-					changeText("Current queue: " + queue.toString(), "The element " + element + " has been added!");
-				}
-				else {
-					changeText("Current queue: " + queue.toString(), "The element " + element + " has been added! The queue has reached its max capacity.");
-				}
-				updateButtons();
-			}
+
+		        JOptionPane.showMessageDialog(null, "The element has been inserted successfully!");
+		        list.insert(element, id);
+
+		        changeText("Current list: " + list.toString(), "The element " + element + " with ID " + id + " has been added!");
+
+		        updateButtons();
+		    }
 		});
 		operations.add(insertBtn);
 		insertBtn.setEnabled(false);
@@ -143,9 +133,9 @@ public class GUIListFrame extends JPanel
 		sortBtn = new JButton("Sort");
 		sortBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				queue.sort();
+				list.sort();
 				JOptionPane.showMessageDialog(null, "The queue has been sorted successfully!.");
-				changeText("Current queue: " + queue.toString(), "The queue has been sorted.");
+				changeText("Current queue: " + list.toString(), "The list has been sorted.");
 				sortBtn.setEnabled(false);
 			}
 		});
@@ -172,7 +162,9 @@ public class GUIListFrame extends JPanel
 		            }
 		        }
 				
-				String[] texts = list.find(elementToFind[0]);
+				int number = list.find(elementToFind[0]);
+				String[] texts = new String[]{String.valueOf(number)};
+				
 				SwingUtilities.invokeLater(new Runnable() {
 					@Override
 		            public void run() {		            	
@@ -182,7 +174,7 @@ public class GUIListFrame extends JPanel
 			    });
 				
 				updateButtons();
-				changeText("Current queue: " + queue.toString(), texts[texts.length-1]);
+				changeText("Current list: " + list.toString(), texts[texts.length-1]);
 			}
 		});
 		operations.add(findBtn);
@@ -190,29 +182,49 @@ public class GUIListFrame extends JPanel
 		
 		deleteBtn = new JButton("Delete");
 		deleteBtn.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {		        
-		    	int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the rear element?", "Confirmation", JOptionPane.YES_NO_OPTION);
-	            if (result == JOptionPane.YES_OPTION) {
-		            int deleted = queue.delete();
-		            JOptionPane.showMessageDialog(null, "The element has been deleted successfully!.");
-		            if (!queue.isEmpty()) {
-						changeText("Current queue: " + queue.toString(), "The element " + deleted + " has been deleted!");
-					}
-					else {
-						changeText("The queue is currently empty. Please insert elements.", "The element " + deleted + " has been deleted! The queue is empty now.");
-					}
-					updateButtons();
+		    public void actionPerformed(ActionEvent e) {
+		        String idInput = JOptionPane.showInputDialog(null, "Please input the ID of the element to delete:", "Input ID", JOptionPane.QUESTION_MESSAGE);
+		        if (idInput == null) 
+		        {
+		            return;
+		        }
+
+		        try 
+		        {
+		            int idToDelete = Integer.parseInt(idInput);
+		            int deleted = list.delete(idToDelete);
+
+		            if (deleted != -1) 
+		            {
+		                JOptionPane.showMessageDialog(null, "The element with ID " + idToDelete + " has been deleted successfully!");
+		                if (!list.isEmpty()) 
+		                {
+		                    changeText("Current list: " + list.toString(), "The element with ID " + idToDelete + " has been deleted!");
+		                } else {
+		                    changeText("The list is currently empty. Please insert elements.", "The element with ID " + idToDelete + " has been deleted! The list is empty now.");
+		                }
+		                updateButtons();
+		            } 
+		            else
+		            {
+		                JOptionPane.showMessageDialog(null, "The element with ID " + idToDelete + " does not exist in the list!", "Error", JOptionPane.ERROR_MESSAGE);
+		            }
+		        } 
+		        catch (NumberFormatException ex) 
+		        {
+		            JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid integer for the ID.", "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 		    }
 		});
+		
 		operations.add(deleteBtn);
 		deleteBtn.setEnabled(false);
 		
 		resetBtn = new JButton("Reset");
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GUIQueueFrame.this.dispose();
-            	new GUIQueueFrame();
+				GUIListFrame.this.dispose();
+            	new GUIListFrame();
 			}
 		});
 		operations.add(resetBtn);		
@@ -222,53 +234,47 @@ public class GUIListFrame extends JPanel
 	
 	JPanel createMain()
 	{
-		JPanel queueDemonstration = new JPanel();
-		queueDemonstration.setLayout(new BoxLayout(queueDemonstration, BoxLayout.Y_AXIS));
+		JPanel listDemonstration = new JPanel();
+		listDemonstration.setLayout(new BoxLayout(listDemonstration, BoxLayout.Y_AXIS));
 		
 		String fontFamily = "Verdana";
         int fontStyle = Font.PLAIN;
         int fontSize = 20;
         Font font = new Font(fontFamily, fontStyle, fontSize);
 		
-		queueDemonstration.add(new JLabel("Current Queue: "));
-		demoQueue = new JTextField(100);
-		demoQueue.setFont(font);
-		demoQueue.setEditable(false);
-		queueDemonstration.add(demoQueue);
+		listDemonstration.add(new JLabel("Current List: "));
+		demoList = new JTextField(100);
+		demoList.setFont(font);
+		demoList.setEditable(false);
+		listDemonstration.add(demoList);
 		
-		queueDemonstration.add(new JLabel("Queue Status: "));
-		statusQueue = new JTextField(100);
-		statusQueue.setText("Please create a queue first!");
-		statusQueue.setFont(font);
-		statusQueue.setEditable(false);
-		queueDemonstration.add(statusQueue);
+		listDemonstration.add(new JLabel("List Status: "));
+		statusList = new JTextField(100);
+		statusList.setText("Please create a list first!");
+		statusList.setFont(font);
+		statusList.setEditable(false);
+		listDemonstration.add(statusList);
 		
-		return queueDemonstration;
+		return listDemonstration;
 		
 	}
+	
+	private void changeText(String str1, String str2) {
+		demoList.setText(str1);
+		statusList.setText(str2);
+	}
+	
+	private void updateButtons() {
+		if (list.isEmpty()) {
+			deleteBtn.setEnabled(false);
+			sortBtn.setEnabled(false);
+			findBtn.setEnabled(false);
+		}
+		else {
+			deleteBtn.setEnabled(true);
+			sortBtn.setEnabled(true);
+			findBtn.setEnabled(true);
+		}
 
-
-	JMenuBar createMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-        JMenu optionMenu = new JMenu("Option");
-        
-        JMenuItem helpMenuItem = new JMenuItem("Help");
-        helpMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-            	JOptionPane.showMessageDialog(new JFrame("Help"), "Some detailed explanation of the project and its usage.");
-            }
-        });
-        optionMenu.add(helpMenuItem);
-
-        JMenuItem exitMenuItem = new JMenuItem("Exit");
-        exitMenuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-            }
-        });
-        optionMenu.add(exitMenuItem);        
-        menuBar.add(optionMenu);
-        menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
-        return menuBar;
-	}	
+	}
 }
