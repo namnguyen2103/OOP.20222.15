@@ -274,5 +274,6 @@ public class GUIQueueFrame extends JFrame {
 		else {
 			insertBtn.setEnabled(true);
 		}
+		
 	}
 }
