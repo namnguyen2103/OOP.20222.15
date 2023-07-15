@@ -1,6 +1,7 @@
 package datastructure;
 
-public abstract class DataStructure {
+public abstract class DataStructure 
+{
 	
 	protected int capacity;
     protected int[] arr;
@@ -19,3 +20,4 @@ public abstract class DataStructure {
     public abstract int delete();      
     
 }
+
