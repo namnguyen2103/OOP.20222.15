@@ -76,8 +76,8 @@ public class GUIMain extends JFrame {
 	
 	JPanel createCenter() {		
 		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(1, 3, 10, 10));
-		
+		center.setLayout(new GridLayout(1, 3, 10, 10));		
+
 		center.add(new GUIListPanel());
 		center.add(new GUIStackPanel());
 		center.add(new GUIQueuePanel());		
