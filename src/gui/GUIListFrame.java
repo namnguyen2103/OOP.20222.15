@@ -88,6 +88,7 @@ public class GUIListFrame extends JFrame {
 		       changeText("The queue is currently empty. Please insert elements.", "A list has been created!");
 		       updateButtons();
 		       createBtn.setEnabled(false);
+		       insertBtn.setEnabled(true);
 			}
 		});
 		operations.add(createBtn);
@@ -181,21 +182,41 @@ public class GUIListFrame extends JFrame {
 		
 		deleteBtn = new JButton("Delete");
 		deleteBtn.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {		        
-		    	int result = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the rear element?", "Confirmation", JOptionPane.YES_NO_OPTION);
-	            if (result == JOptionPane.YES_OPTION) {
-		            int deleted = list.delete();
-		            JOptionPane.showMessageDialog(null, "The element has been deleted successfully!.");
-		            if (!list.isEmpty()) {
-						changeText("Current list: " + list.toString(), "The element " + deleted + " has been deleted!");
-					}
-					else {
-						changeText("The list is currently empty. Please insert elements.", "The element " + deleted + " has been deleted! The list is empty now.");
-					}
-					updateButtons();
+		    public void actionPerformed(ActionEvent e) {
+		        String idInput = JOptionPane.showInputDialog(null, "Please input the ID of the element to delete:", "Input ID", JOptionPane.QUESTION_MESSAGE);
+		        if (idInput == null) 
+		        {
+		            return;
+		        }
+
+		        try 
+		        {
+		            int idToDelete = Integer.parseInt(idInput);
+		            int deleted = list.delete(idToDelete);
+
+		            if (deleted != -1) 
+		            {
+		                JOptionPane.showMessageDialog(null, "The element with ID " + idToDelete + " has been deleted successfully!");
+		                if (!list.isEmpty()) 
+		                {
+		                    changeText("Current list: " + list.toString(), "The element with ID " + idToDelete + " has been deleted!");
+		                } else {
+		                    changeText("The list is currently empty. Please insert elements.", "The element with ID " + idToDelete + " has been deleted! The list is empty now.");
+		                }
+		                updateButtons();
+		            } 
+		            else
+		            {
+		                JOptionPane.showMessageDialog(null, "The element with ID " + idToDelete + " does not exist in the list!", "Error", JOptionPane.ERROR_MESSAGE);
+		            }
+		        } 
+		        catch (NumberFormatException ex) 
+		        {
+		            JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid integer for the ID.", "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 		    }
 		});
+		
 		operations.add(deleteBtn);
 		deleteBtn.setEnabled(false);
 		
@@ -203,7 +224,7 @@ public class GUIListFrame extends JFrame {
 		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				GUIListFrame.this.dispose();
-            	new GUIMain();
+            	new GUIListFrame();
 			}
 		});
 		operations.add(resetBtn);		

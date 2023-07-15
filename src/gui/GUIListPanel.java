@@ -36,7 +36,7 @@ public class GUIListPanel extends JPanel
 				frame.dispose();
 
 				// Create a new window
-				new GUIQueueFrame();
+				new GUIListFrame();
             }
         });
 		

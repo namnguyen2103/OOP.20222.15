@@ -132,19 +132,19 @@ public class List extends DataStructure
 	    return "[" + sb.toString() + "]";
 	}
 	
-	public void delete(int id) 
+	public int delete(int id) 
 	{
 	    if (isEmpty()) 
 	    {
-	        System.out.println("Underflow\nProgram Terminated");
-	        System.exit(-1);
+	    	return -1;
 	    }
 
 	    if (id < 0 || id >= count) 
 	    {
-	        System.out.println("Invalid ID\nProgram Terminated");
-	        System.exit(-1);
+	    	return -1;
 	    }
+	    
+	    int deletedElement = arr[id];
 
 	    for (int i = id; i < count - 1; i++)
 	    {
@@ -152,6 +152,6 @@ public class List extends DataStructure
 	    }
 
 	    count--;
-	    return;
+	    return deletedElement;
 	}
 }
