@@ -1,7 +1,6 @@
 package datastructure;
 
-public abstract class DataStructure 
-{
+public abstract class DataStructure {
 	
 	protected int capacity;
     protected int[] arr;
@@ -15,9 +14,8 @@ public abstract class DataStructure
     public void sort() {    	
     };
     
-    public abstract int find(int element); 
+    public abstract String[] find(int element); 
     
     public abstract int delete();      
     
 }
-
