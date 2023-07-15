@@ -6,8 +6,8 @@ public class Queue extends DataStructure {
 		
     private int front;      // front points to the front element in the queue
     private int rear;       // rear points to the last element in the queue
-    private int capacity;   // maximum capacity of the queue
-    private int count;      // current size of the queue
+    private int capacity;   
+    private int count;      
 	
     public Queue(int capacity)
     {
@@ -129,28 +129,27 @@ public class Queue extends DataStructure {
         return sb.toString();
     }
 	
-	public static void main (String[] args)
-    {
-        // create a queue of capacity 5
-        Queue q = new Queue(8);
- 
-        q.insert(5);
-        q.insert(-3);
-        q.insert(4);
-        q.insert(2);
-        q.insert(1);
-        System.out.println(q);
-        for (int qq: q.arr) {
-        	System.out.print(qq);
-        }
-        System.out.println(q);
-        String[] steps = q.find(6);
-        for (String step: steps) {
-        	System.out.println(step);
-        }
-        System.out.println(q);
-        for (int qq: q.arr) {
-        	System.out.print(qq);
-        }
-    } 
+//	public static void main (String[] args)
+//    {        
+//        Queue q = new Queue(8);
+// 
+//        q.insert(5);
+//        q.insert(-3);
+//        q.insert(4);
+//        q.insert(2);
+//        q.insert(1);
+//        System.out.println(q);
+//        for (int qq: q.arr) {
+//        	System.out.print(qq);
+//        }
+//        System.out.println(q);
+//        String[] steps = q.find(6);
+//        for (String step: steps) {
+//        	System.out.println(step);
+//        }
+//        System.out.println(q);
+//        for (int qq: q.arr) {
+//        	System.out.print(qq);
+//        }
+//    } 
 }
