@@ -21,13 +21,56 @@ public class GUIStackFrame extends JFrame {
 		Container cp = getContentPane();
 		cp.setLayout(new BorderLayout());
 		
-		cp.add(CreateMain(), BorderLayout.CENTER); 
+		cp.add(createMain(), BorderLayout.CENTER); 
+		cp.add(createMenuBar(), BorderLayout.NORTH);
 		cp.add(createOperations(), BorderLayout.SOUTH);
 
 		setVisible(true);
 		setTitle("Stack");
 		setSize(1200, 400);
 		setLocationRelativeTo(null);	
+	}
+
+	JMenuBar createMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+        JMenu optionMenu = new JMenu("Option");
+
+        JMenuItem mainMenuItem = new JMenuItem("Main Menu");
+        mainMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	GUIStackFrame.this.dispose();
+            	new GUIMain();
+            }
+        });
+        optionMenu.add(mainMenuItem); 
+
+        JMenuItem helpMenuItem = new JMenuItem("Help");
+        helpMenuItem.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
+            	SwingUtilities.invokeLater(new Runnable() {
+                    public void run() {
+                        //Turn off metal's use of bold fonts
+                        UIManager.put("swing.boldMetal", Boolean.FALSE);
+                        new TextFieldDemo("Help").setVisible(true);
+                    }
+                });
+            }
+        });
+        optionMenu.add(helpMenuItem);
+
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        exitMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        optionMenu.add(exitMenuItem);     
+
+        menuBar.add(optionMenu);
+        menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
+        return menuBar;
 	}
 
 	JPanel createOperations() {
@@ -181,7 +224,7 @@ public class GUIStackFrame extends JFrame {
 		return operations;
 	}
 	
-	JPanel CreateMain()
+	JPanel createMain()
 	{
 		JPanel stackDemonstration = new JPanel();
 		stackDemonstration.setLayout(new BoxLayout(stackDemonstration, BoxLayout.Y_AXIS));
