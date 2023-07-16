@@ -43,7 +43,7 @@ public class Stack extends DataStructure{
         Stack tempArr = new Stack(capacity);
         while (!isEmpty()) {
             int temp = delete();
-            while (!tempArr.isEmpty() && temp < tempArr.peek()) {
+            while (!tempArr.isEmpty() && temp > tempArr.peek()) {
                 insert(tempArr.delete());
             }
             tempArr.insert(temp);
