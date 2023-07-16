@@ -66,7 +66,7 @@ public class TextFieldDemo extends JFrame
         status = new JLabel();
         jLabel1 = new JLabel();
 
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(file);
 
         textArea.setColumns(20);
