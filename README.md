@@ -20,10 +20,24 @@ To run the project, follow these steps:
 3. Run the project from the `GUIMain.java` file.
 
 ## Member assignments
-1. Vu Nhat Minh 20214919 
+
+1. Nguyen Huu Nam 20210630
+- Implement GUIMain, GUIQueue, Queue
+- Create Use case diagram, General class diagram 
+- Writing README.md
+- Writing report
+
 2. Vu Tuan Minh 20210597
-3. Nguyen Huu Nam 20210630
+- Implement GUIList, List
+- Create Class diagrams
+- Implemented LinkedList (but it was ultimately excluded from the final version)
+
+3. Vu Nhat Minh 20214919
+- Implement GUIStack, Stack
+- Record demo video
+- Prepare slides for presentation
 
 ## Demo video
-You can file a demo of the application [here](https://google.com).
+
+You can file a demo of the application [here]( https://www.youtube.com/watch?v=ygdMFH8gqZ0).
 
