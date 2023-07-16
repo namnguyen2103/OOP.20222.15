@@ -1,7 +1,5 @@
 package datastructure;
 
-public class List {
-  
 public class List extends DataStructure
 {
 	private int count;

@@ -1,38 +1,18 @@
 I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
-I. Introduction
+
+This program allows you to perform basic operations on three types of data structures: List, Stack, and Queue.
+
+II. Instructions
+
+1. Choose a data structure from the main menu.
+2. Create an instance of the selected data structure.
+3. Explore various functionalities, such as insert, sort, find, and delete, according to your needs. You can reset the data structure at any time using the "Reset" button or return to the main menu to choose another data structure using the "Main Menu" button.
+
+III. About Us
+We are Group 15, comprising three members:
+- Vu Nhat Minh (20214919)
+- Vu Tuan Minh (20210597)
+- Nguyen Huu Nam (20210630)
+
+IV. Credits
+This Help menu is based on the source code from Oracle's text fields demo: https://docs.oracle.com/javase/tutorial/uiswing/components/textfield.html

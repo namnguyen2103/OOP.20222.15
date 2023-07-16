@@ -33,20 +33,18 @@ public class GUIQueueFrame extends JFrame {
 	
 	JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-        JMenu optionMenu = new JMenu("Option");
         
-        JMenuItem mainMenuItem = new JMenuItem("Main Menu");
-        mainMenuItem.addActionListener(new ActionListener() {
+        JButton mainMenuButton = new JButton("Main Menu");
+        mainMenuButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	GUIQueueFrame.this.dispose();
             	new GUIMain();
             }
         });
-        optionMenu.add(mainMenuItem); 
+        menuBar.add(mainMenuButton); 
         
         JMenuItem helpMenuItem = new JMenuItem("Help");
-        helpMenuItem.addActionListener(new ActionListener() 
-        {
+        helpMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) 
             {
             	SwingUtilities.invokeLater(new Runnable() {
@@ -58,17 +56,19 @@ public class GUIQueueFrame extends JFrame {
                 });
             }
         });
-        optionMenu.add(helpMenuItem);
+        menuBar.add(helpMenuItem);
 
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         exitMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?");
+                if (confirm == JOptionPane.YES_OPTION) {
+                    System.exit(0);
+                }
             }
         });
-        optionMenu.add(exitMenuItem);     
+        menuBar.add(exitMenuItem);  
         
-        menuBar.add(optionMenu);
         menuBar.setLayout(new FlowLayout(FlowLayout.LEFT));
         return menuBar;
 	}
