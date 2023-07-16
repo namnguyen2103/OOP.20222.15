@@ -214,13 +214,22 @@ public class GUIListFrame extends JFrame {
 		                } else {
 		                    changeText("The list is currently empty. Please insert elements.", "The element " + numToDelete + " has been deleted! The list is empty now.");
 		                }
+		                System.out.println(1);
 		            } 
 		            else
 		            {
-	                    changeText("Current list: " + list.toString(), "The element " + numToDelete + " has been deleted!");
+		            	if (!list.isEmpty())
+		            	{
+		                    changeText("Current list: " + list.toString(), "The element " + numToDelete + " has been deleted!");
+		            	}
+		            	else
+		            	{
+		                    changeText("The list is currently empty. Please insert elements.", "The element " + numToDelete + " has been deleted! The list is empty now.");
+		            	}
+		            	
 		            }
 		            
-		            updateButtons();
+		            
 		        } 
 		        catch (NumberFormatException ex) 
 		        {

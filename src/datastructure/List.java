@@ -146,30 +146,31 @@ public class List extends DataStructure
 	
 	public int delete(int num) 
 	{
-		int k = 0;
-	    if (isEmpty()) 
-	    {
-	    	return -1;
-	    }
-	    
-	    for(int id = 0; id < count; ++id)
-	    {
-	    	if(arr[id] == num)
-	    	{
-	    		++k;
-			    for (int j = id; j < count - 1; j++)
-			    {
-			        arr[j] = arr[j + 1];
-			    }
-	    	}
-		    
-		    count--;
-	    }
-	    
+	    int k = 0;
+	    int id = 0;
 
-	    
-	    return (k == 0) ? -1: num;
+	    while (id < count) 
+	    {
+	        if (arr[id] == num) 
+	        {
+	            k++;
+
+	            for (int j = id; j < count - 1; j++) 
+	            {
+	                arr[j] = arr[j + 1];
+	            }
+
+	           count--;
+	        } 
+	        else 
+	        {
+	            id++;
+	        }
+	    }
+
+	    return k > 0 ? num : -1;
 	}
+
 	
 	@Override
 	public int delete()
