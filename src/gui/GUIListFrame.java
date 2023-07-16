@@ -127,14 +127,28 @@ public class GUIListFrame extends JFrame {
 		            }
 		        }
 		        
-		        if(list.size() > 0 && id < list.size()) list.insert(element, id);
-		        else list.insert(element);
+		        if(list.size() > 0 && id < list.size())
+		        {
+		        	list.insert(element, id);
+			        JOptionPane.showMessageDialog(null, "The element has been inserted successfully!");
 
-		        JOptionPane.showMessageDialog(null, "The element has been inserted successfully!");
+			        changeText("Current list: " + list.toString(), "The element " + element + " has been added!");
 
-		        changeText("Current list: " + list.toString(), "The element " + element + " has been added!");
+			        updateButtons();
 
-		        updateButtons();
+		        }
+		        else
+		        {
+		        	list.insert(element);
+			        JOptionPane.showMessageDialog(null, "The element has been inserted successfully at last!");
+
+			        changeText("Current list: " + list.toString(), "The element " + element + " has been added!");
+
+			        updateButtons();
+		        }
+		        	
+
+
 		    }
 		});
 		operations.add(insertBtn);
