@@ -1,7 +1,7 @@
 package datastructure;
 
-public class List {
-  
+import java.util.ArrayList;
+
 public class List extends DataStructure
 {
 	private int count;
