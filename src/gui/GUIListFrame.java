@@ -101,13 +101,21 @@ public class GUIListFrame extends JFrame {
 		        boolean validInput = false;
 		        int element = 0, id = 0;
 
-		        while (!validInput) {
+		        while (!validInput) 
+		        {
 		            String elementInput = JOptionPane.showInputDialog(null, "Please input an integer for the element:", "Input the element", JOptionPane.QUESTION_MESSAGE);
-		            String idInput = JOptionPane.showInputDialog(null, "Please input an integer for the ID:", "Input the ID", JOptionPane.QUESTION_MESSAGE);
-
-		            if (elementInput == null || idInput == null) {
+		            
+		            if (elementInput == null) 
+		            {
 		                return;
 		            }
+		            String idInput = JOptionPane.showInputDialog(null, "Please input an integer for the ID:", "Input the ID", JOptionPane.QUESTION_MESSAGE);
+		            
+		            if (idInput == null) 
+		            {
+		                return;
+		            }
+		            
 
 		            try 
 		            {
@@ -118,13 +126,29 @@ public class GUIListFrame extends JFrame {
 		                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
 		            }
 		        }
+		        
+		        if(list.size() > 0 && id < list.size())
+		        {
+		        	list.insert(element, id);
+			        JOptionPane.showMessageDialog(null, "The element has been inserted successfully!");
 
-		        JOptionPane.showMessageDialog(null, "The element has been inserted successfully!");
-		        list.insert(element, id);
+			        changeText("Current list: " + list.toString(), "The element " + element + " has been added!");
 
-		        changeText("Current list: " + list.toString(), "The element " + element + " with ID " + id + " has been added!");
+			        updateButtons();
 
-		        updateButtons();
+		        }
+		        else
+		        {
+		        	list.insert(element);
+			        JOptionPane.showMessageDialog(null, "The element has been inserted successfully at last!");
+
+			        changeText("Current list: " + list.toString(), "The element " + element + " has been added!");
+
+			        updateButtons();
+		        }
+		        	
+
+
 		    }
 		});
 		operations.add(insertBtn);
@@ -151,13 +175,17 @@ public class GUIListFrame extends JFrame {
 				while (!validInput) {
 		            String input = JOptionPane.showInputDialog(null, "Please input an integer:", "Input the element", JOptionPane.QUESTION_MESSAGE);
 		            
-		            if (input == null) {
+		            if (input == null) 
+		            {
 		                return;
 		            }
-		            try {
+		            try 
+		            {
 		            	elementToFind[0] = Integer.parseInt(input);
 		                validInput = true;
-		            } catch (NumberFormatException ex) {
+		            } 
+		            catch (NumberFormatException ex)
+		            {
 		                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a valid integer.", "Error", JOptionPane.ERROR_MESSAGE);
 		            }
 		        }
@@ -179,32 +207,43 @@ public class GUIListFrame extends JFrame {
 		deleteBtn = new JButton("Delete");
 		deleteBtn.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        String idInput = JOptionPane.showInputDialog(null, "Please input the ID of the element to delete:", "Input ID", JOptionPane.QUESTION_MESSAGE);
-		        if (idInput == null) 
+		        String numInput = JOptionPane.showInputDialog(null, "Please input the number of the element to delete:", "Input N", JOptionPane.QUESTION_MESSAGE);
+		        if (numInput == null) 
 		        {
 		            return;
 		        }
 
 		        try 
 		        {
-		            int idToDelete = Integer.parseInt(idInput);
-		            int deleted = list.delete(idToDelete);
+		            int numToDelete = Integer.parseInt(numInput);
+		            int deleted = list.delete(numToDelete);
 
-		            if (deleted != -1) 
+		            if (deleted == -1) 
 		            {
-		                JOptionPane.showMessageDialog(null, "The element with ID " + idToDelete + " has been deleted successfully!");
+		                JOptionPane.showMessageDialog(null, "The element " + numToDelete + " has been deleted successfully!");
 		                if (!list.isEmpty()) 
 		                {
-		                    changeText("Current list: " + list.toString(), "The element with ID " + idToDelete + " has been deleted!");
+		                    JOptionPane.showMessageDialog(null, "The element " + numToDelete + " does not exist in the list!", "Error", JOptionPane.ERROR_MESSAGE);
+		                    
 		                } else {
-		                    changeText("The list is currently empty. Please insert elements.", "The element with ID " + idToDelete + " has been deleted! The list is empty now.");
+		                    changeText("The list is currently empty. Please insert elements.", "The element " + numToDelete + " has been deleted! The list is empty now.");
 		                }
-		                updateButtons();
+		                System.out.println(1);
 		            } 
 		            else
 		            {
-		                JOptionPane.showMessageDialog(null, "The element with ID " + idToDelete + " does not exist in the list!", "Error", JOptionPane.ERROR_MESSAGE);
+		            	if (!list.isEmpty())
+		            	{
+		                    changeText("Current list: " + list.toString(), "The element " + numToDelete + " has been deleted!");
+		            	}
+		            	else
+		            	{
+		                    changeText("The list is currently empty. Please insert elements.", "The element " + numToDelete + " has been deleted! The list is empty now.");
+		            	}
+		            	
 		            }
+		            
+		            
 		        } 
 		        catch (NumberFormatException ex) 
 		        {

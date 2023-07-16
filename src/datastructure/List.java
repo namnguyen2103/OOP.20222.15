@@ -31,7 +31,13 @@ public class List extends DataStructure
 	    arr[id] = element;
 	    count++;
 	}
-
+	
+	public void insert(int element) 
+	{
+	    arr[count] = element;
+	    count++;
+	}
+	
 	@Override
 	public void sort() 
 	{
@@ -136,28 +142,33 @@ public class List extends DataStructure
 	    return "[" + sb.toString() + "]";
 	}
 	
-	public int delete(int id) 
+	public int delete(int num) 
 	{
-	    if (isEmpty()) 
+	    int k = 0;
+	    int id = 0;
+
+	    while (id < count) 
 	    {
-	    	return -1;
+	        if (arr[id] == num) 
+	        {
+	            k++;
+
+	            for (int j = id; j < count - 1; j++) 
+	            {
+	                arr[j] = arr[j + 1];
+	            }
+
+	           count--;
+	        } 
+	        else 
+	        {
+	            id++;
+	        }
 	    }
 
-	    if (id < 0 || id >= count) 
-	    {
-	    	return -1;
-	    }
-	    
-	    int deletedElement = arr[id];
-
-	    for (int i = id; i < count - 1; i++)
-	    {
-	        arr[i] = arr[i + 1];
-	    }
-
-	    count--;
-	    return deletedElement;
+	    return k > 0 ? num : -1;
 	}
+
 	
 	@Override
 	public int delete()
